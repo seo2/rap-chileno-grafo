@@ -141,7 +141,12 @@ export function getSourceExtracts(sourceId: string): SourceExtract[] {
       entityId: relationship.id,
       entityLabel: getRelationshipLabel(relationship),
       field: 'relación',
-      value: [relationship.relationshipType.replaceAll('_', ' '), relationship.year ? String(relationship.year) : undefined, `peso ${relationship.weight}`]
+      value: [
+        relationship.relationshipType.replaceAll('_', ' '),
+        relationship.year ? String(relationship.year) : undefined,
+        `peso ${relationship.weight}`,
+        relationship.notes,
+      ]
         .filter(Boolean)
         .join(' · '),
       confidence: relationship.confidence,

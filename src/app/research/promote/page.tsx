@@ -6,7 +6,8 @@ import { getResearchPromotionQueue } from '@/lib/research';
 export default function ResearchPromotionPage() {
   const queue = getResearchPromotionQueue();
   const readyCount = queue.filter((item) => item.ready).length;
-  const blockedCount = queue.length - readyCount;
+  const appliedCount = queue.filter((item) => item.appliedRelationshipId).length;
+  const blockedCount = queue.length - readyCount - appliedCount;
 
   return (
     <SiteShell>
@@ -21,6 +22,7 @@ export default function ResearchPromotionPage() {
           <div className="chipGroup">
             <span className="chip">{queue.length} paquetes</span>
             <span className="chip">{readyCount} listos</span>
+            <span className="chip">{appliedCount} aplicados</span>
             <span className="chip">{blockedCount} bloqueados</span>
             <span className="chip">0 mutaciones automáticas</span>
           </div>
@@ -37,10 +39,10 @@ export default function ResearchPromotionPage() {
               <article className="promotionCard" key={item.candidateId}>
                 <div className="promotionHeader">
                   <div>
-                    <p className="eyebrow">{item.ready ? 'listo' : 'bloqueado'} · {item.target}</p>
+                    <p className="eyebrow">{item.appliedRelationshipId ? 'aplicado' : item.ready ? 'listo' : 'bloqueado'} · {item.target}</p>
                     <h3>{item.title}</h3>
                   </div>
-                  <span className={item.ready ? 'readyPill' : 'blockedPill'}>{item.ready ? 'promovible' : `${item.blockers.length} bloqueos`}</span>
+                  <span className={item.ready ? 'readyPill' : 'blockedPill'}>{item.ready ? 'promovible' : item.appliedRelationshipId ? 'aplicado' : `${item.blockers.length} bloqueos`}</span>
                 </div>
                 <p>{item.summary}</p>
 

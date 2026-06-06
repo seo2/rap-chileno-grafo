@@ -39,6 +39,7 @@ export type CandidatePromotionReadiness = {
   ready: boolean;
   blockers: string[];
   summary: string;
+  appliedRelationshipId?: string;
 };
 
 export type CandidatePromotionPackage = CandidatePromotionReadiness & {
@@ -147,6 +148,16 @@ export function getPromotionReadiness(id: string): CandidatePromotionReadiness |
   const candidate = getResearchCandidateById(id);
   if (!candidate) return undefined;
 
+  const appliedRelationship = findAppliedRelationship(candidate.id);
+  if (appliedRelationship) {
+    return {
+      ready: false,
+      blockers: ['promoción ya aplicada al grafo editorial'],
+      summary: `Esta promoción ya fue aplicada manualmente como ${appliedRelationship.id}; se mantiene visible para auditoría, no para re-aplicarla.`,
+      appliedRelationshipId: appliedRelationship.id,
+    };
+  }
+
   const blockers: string[] = [];
   const extractedText = candidate.extractedText?.trim();
   const notes = candidate.notes?.toLowerCase() ?? '';
@@ -174,21 +185,27 @@ export function buildCandidatePromotionPackage(id: string): CandidatePromotionPa
   if (!candidate || !readiness) return undefined;
 
   const draft = buildCandidatePromotionDraft(candidate);
+  const appliedRelationship = readiness.appliedRelationshipId
+    ? relationships.find((relationship) => relationship.id === readiness.appliedRelationshipId)
+    : undefined;
   return {
     ...readiness,
     candidateId: candidate.id,
     title: candidate.label,
     target: draft.target,
     priority: candidate.priority,
-    patchPreview: buildPatchPreview(candidate, draft.target),
+    patchPreview: appliedRelationship ? buildAppliedRelationshipPreview(appliedRelationship) : buildPatchPreview(candidate, draft.target),
     auditTrail: [
       `Fuente primaria: ${candidate.sourceName}${candidate.sourceUrl ? ` (${candidate.sourceUrl})` : ''}`,
       `Claim revisado: ${candidate.claim}`,
       `Texto/cita: ${candidate.extractedText ?? 'pendiente de capturar'}`,
       `Entidades: ${candidate.relatedEntityIds.map(getEntityLabel).join(', ') || 'pendiente de resolver'}`,
       `Confianza: ${Math.round(candidate.confidence * 100)}%`,
-    ],
-    safetyWarning: 'No muta el dataset semilla: este paquete es un parche editorial para copiar, revisar y aplicar manualmente.',
+      appliedRelationship ? `Aplicada en relación: ${appliedRelationship.id}` : undefined,
+    ].filter((entry): entry is string => Boolean(entry)),
+    safetyWarning: appliedRelationship
+      ? 'La promoción ya fue aplicada al grafo editorial; no volver a copiar este parche sin revisar duplicados.'
+      : 'No muta el dataset semilla: este paquete es un parche editorial para copiar, revisar y aplicar manualmente.',
   };
 }
 
@@ -257,6 +274,24 @@ function getPromotionTargetLabel(target: CandidatePromotionTarget) {
     source_quote: 'una cita de fuente candidata',
   };
   return labels[target];
+}
+
+function findAppliedRelationship(candidateId: string) {
+  return relationships.find((relationship) => relationship.promotedFromCandidateId === candidateId);
+}
+
+function buildAppliedRelationshipPreview(relationship: typeof relationships[number]) {
+  return [
+    'relationships.update({',
+    `  id: '${relationship.id}',`,
+    `  source: '${relationship.source}',`,
+    `  target: '${relationship.target}',`,
+    `  relationshipType: '${relationship.relationshipType}',`,
+    `  curationStatus: '${relationship.curationStatus}',`,
+    `  promotedFromCandidateId: '${relationship.promotedFromCandidateId}',`,
+    `  notes: '${escapePatchValue(relationship.notes ?? '')}',`,
+    '});',
+  ].join('\n');
 }
 
 function buildPatchPreview(candidate: ResearchCandidate, target: CandidatePromotionTarget) {

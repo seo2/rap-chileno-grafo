@@ -38,6 +38,8 @@ export type GraphRelationshipSummary = {
   year?: number;
   curationStatus: CurationStatus;
   confidence: number;
+  promotedFromCandidateId?: string;
+  notes?: string;
 };
 
 export type CanvasGraphNode = GraphNode & {
@@ -215,6 +217,8 @@ export function getRelationshipSummary(relationshipId: string): GraphRelationshi
     year: relationship.year,
     curationStatus: relationship.curationStatus,
     confidence: relationship.confidence,
+    promotedFromCandidateId: relationship.promotedFromCandidateId,
+    notes: relationship.notes,
   };
 }
 

@@ -8,13 +8,13 @@ import {
   getResearchPromotionQueue,
 } from '../src/lib/research';
 
-test('getPromotionReadiness requires candidate status, source URL, quote and second-source verification', () => {
-  const ready = getPromotionReadiness('candidate-musica-popular-relationship-seo2-makiza');
-  assert.ok(ready);
+test('getPromotionReadiness blocks already-applied promotions and still validates missing editorial requirements', () => {
+  const applied = getPromotionReadiness('candidate-musica-popular-relationship-seo2-makiza');
+  assert.ok(applied);
 
-  assert.equal(ready.ready, true);
-  assert.equal(ready.blockers.length, 0);
-  assert.match(ready.summary, /lista para promoción editorial/i);
+  assert.equal(applied.ready, false);
+  assert.deepEqual(applied.blockers, ['promoción ya aplicada al grafo editorial']);
+  assert.match(applied.summary, /ya fue aplicada/i);
 
   const blocked = getPromotionReadiness('candidate-shia-album-ser-humano');
   assert.ok(blocked);
@@ -28,7 +28,7 @@ test('getPromotionReadiness requires candidate status, source URL, quote and sec
   ]);
 });
 
-test('buildCandidatePromotionPackage creates a non-mutating editorial patch for a ready relationship candidate', () => {
+test('buildCandidatePromotionPackage reports an applied relationship promotion without mutating catalog counts', () => {
   const beforeCounts = {
     artists: artists.length,
     albums: albums.length,
@@ -39,12 +39,13 @@ test('buildCandidatePromotionPackage creates a non-mutating editorial patch for 
 
   assert.ok(promotionPackage);
   assert.equal(promotionPackage.candidateId, 'candidate-musica-popular-relationship-seo2-makiza');
-  assert.equal(promotionPackage.ready, true);
+  assert.equal(promotionPackage.ready, false);
   assert.equal(promotionPackage.target, 'relationship');
+  assert.equal(promotionPackage.appliedRelationshipId, 'rel-seo2-makiza');
   assert.match(promotionPackage.title, /Seo2 ↔ Makiza/);
-  assert.match(promotionPackage.patchPreview, /relationshipType: 'associated_with_era'|relationshipType: 'collaborated_with'/);
+  assert.match(promotionPackage.patchPreview, /promotedFromCandidateId: 'candidate-musica-popular-relationship-seo2-makiza'/);
   assert.match(promotionPackage.auditTrail.join('\n'), /Música Popular: Seo2/);
-  assert.match(promotionPackage.safetyWarning, /No muta el dataset semilla/);
+  assert.match(promotionPackage.safetyWarning, /ya fue aplicada/);
 
   assert.deepEqual({
     artists: artists.length,
@@ -53,14 +54,13 @@ test('buildCandidatePromotionPackage creates a non-mutating editorial patch for 
   }, beforeCounts);
 });
 
-test('getResearchPromotionQueue ranks ready promotion packages before blocked drafts', () => {
+test('getResearchPromotionQueue keeps applied and blocked packages visible after ready items', () => {
   const queue = getResearchPromotionQueue();
 
   assert.ok(queue.length >= 4);
-  assert.equal(queue[0].ready, true);
-  assert.equal(queue[0].candidateId, 'candidate-musica-popular-relationship-seo2-makiza');
+  assert.ok(queue.every((item) => item.patchPreview.includes('curationStatus') || item.patchPreview.includes('promotedFromCandidateId')));
   assert.ok(queue.some((item) => item.ready === false));
-  assert.ok(queue.every((item) => item.patchPreview.includes('curationStatus')));
+  assert.ok(queue.some((item) => item.appliedRelationshipId === 'rel-seo2-makiza'));
 });
 
 test('buildCandidatePromotionPackage returns undefined for unknown candidates', () => {

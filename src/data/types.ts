@@ -50,6 +50,7 @@ export type Relationship = EditorialEvidence & {
   relationshipType: 'collaborated_with' | 'member_of' | 'released' | 'from_place' | 'associated_with_era';
   weight: number;
   year?: number;
+  promotedFromCandidateId?: string;
 };
 
 export type Source = {
