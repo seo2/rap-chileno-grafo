@@ -1,0 +1,44 @@
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metric,
+.card {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 16px;
+  padding: 13px;
+}
+
+.metric strong {
+  display: block;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.metric span,
+.artistRow span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.artistList {
+  display: grid;
+  gap: 8px;
+}
+
+.artistRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.artistRow:hover strong {
+  color: var(--green);
+}
