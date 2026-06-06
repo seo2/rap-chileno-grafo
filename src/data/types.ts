@@ -34,6 +34,15 @@ export type Album = EditorialEvidence & {
   type: 'album' | 'ep' | 'single' | 'compilation';
 };
 
+export type AlbumTrack = EditorialEvidence & {
+  id: string;
+  albumId: string;
+  trackNumber: number;
+  title: string;
+  durationMs?: number;
+  spotifyTrackId?: string;
+};
+
 export type Place = EditorialEvidence & {
   id: string;
   slug: string;

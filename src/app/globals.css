@@ -220,6 +220,47 @@ button, input { font: inherit; }
   margin-bottom: 18px;
 }
 
+.trackList {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trackItem {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 16px;
+  padding: 13px;
+}
+
+.trackNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(30, 215, 96, 0.2), rgba(113, 112, 255, 0.22));
+  color: var(--green);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.trackItem small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+}
+
 .sourceQueue {
   display: grid;
   grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.3fr);

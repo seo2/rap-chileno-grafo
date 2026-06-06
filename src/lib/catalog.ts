@@ -3,11 +3,13 @@ import { artists } from '@/data/seed-artists';
 import { places } from '@/data/seed-places';
 import { relationships } from '@/data/seed-relationships';
 import { sources } from '@/data/seed-sources';
-import type { Album, Artist, CurationStatus, Relationship, Source } from '@/data/types';
+import { tracks } from '@/data/seed-tracks';
+import type { Album, AlbumTrack, Artist, CurationStatus, Relationship, Source } from '@/data/types';
 
-export { albums, artists, places, relationships, sources };
+export { albums, artists, places, relationships, sources, tracks };
 export type {
   Album,
+  AlbumTrack,
   Artist,
   CurationStatus,
   EditorialEvidence,
@@ -34,6 +36,7 @@ export type AlbumDecadeGroup = {
 export type AlbumDetail = {
   album: Album;
   artist?: Artist;
+  tracklist: AlbumTrack[];
   relationships: Relationship[];
   relationshipSummaries: Array<{
     id: string;
@@ -88,14 +91,22 @@ export function getAlbumRelationships(albumId: string) {
   return relationships.filter((relationship) => relationship.source === albumId || relationship.target === albumId);
 }
 
+export function getAlbumTracklist(albumId: string) {
+  return tracks
+    .filter((track) => track.albumId === albumId)
+    .sort((a, b) => a.trackNumber - b.trackNumber || a.title.localeCompare(b.title));
+}
+
 export function getAlbumDetail(slug: string): AlbumDetail | undefined {
   const album = getAlbumBySlug(slug);
   if (!album) return undefined;
 
   const artist = getAlbumArtist(album);
   const albumRelationships = getAlbumRelationships(album.id);
+  const tracklist = getAlbumTracklist(album.id);
   const albumSourceIds = new Set([
     ...album.sourceIds,
+    ...tracklist.flatMap((track) => track.sourceIds),
     ...albumRelationships.flatMap((relationship) => relationship.sourceIds),
   ]);
   const albumSources = sources.filter((source) => albumSourceIds.has(source.id));
@@ -107,6 +118,7 @@ export function getAlbumDetail(slug: string): AlbumDetail | undefined {
   return {
     album,
     artist,
+    tracklist,
     relationships: albumRelationships,
     relationshipSummaries: albumRelationships.map((relationship) => ({
       id: relationship.id,

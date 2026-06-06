@@ -13,7 +13,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
   const detail = getAlbumDetail(slug);
   if (!detail) notFound();
 
-  const { album, artist, relationshipSummaries, sources, relatedArtistSlugs } = detail;
+  const { album, artist, tracklist, relationshipSummaries, sources, relatedArtistSlugs } = detail;
 
   return (
     <SiteShell>
@@ -54,6 +54,24 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
               <Link className="chip" href={`/artists/${artistSlug}`} key={artistSlug}>{artistSlug}</Link>
             ))}
           </div>
+        </section>
+
+        <section className="contentCard fullSpan">
+          <p className="sectionTitle">Tracklist semilla</p>
+          <h2>Canciones curadas</h2>
+          {tracklist.length > 0 ? (
+            <ol className="trackList">
+              {tracklist.map((track) => (
+                <li className="trackItem" key={track.id}>
+                  <span className="trackNumber">{track.trackNumber}</span>
+                  <div>
+                    <strong>{track.title}</strong>
+                    <small>{track.sourceName} · {track.curationStatus} · confianza {Math.round(track.confidence * 100)}%</small>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          ) : <p className="muted">Tracklist pendiente de curaduría o importación desde Spotify.</p>}
         </section>
 
         <section className="contentCard fullSpan">
