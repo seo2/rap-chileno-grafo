@@ -220,6 +220,75 @@ button, input { font: inherit; }
   margin-bottom: 18px;
 }
 
+.sourceQueue {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.3fr);
+  gap: 18px;
+}
+
+.queueList,
+.sourceEntityList,
+.extractGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.queueItem,
+.extractCard {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 16px;
+  padding: 13px;
+}
+
+.queueItem span,
+.queueItem small,
+.extractCard span,
+.sourceMentionGrid span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+}
+
+.sourceMentionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.sourceMentionGrid span {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 9px;
+}
+
+.sourceMentionGrid strong {
+  color: var(--green);
+  font-size: 16px;
+}
+
+.sourceCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.extractGrid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 16px;
+}
+
+.extractCard h3 {
+  margin: 0;
+}
+
+.extractCard p:not(.eyebrow) {
+  color: var(--soft);
+  line-height: 1.5;
+}
+
 .timeline,
 .timelineBoard {
   display: grid;
@@ -370,7 +439,8 @@ button, input { font: inherit; }
 }
 
 @media (max-width: 760px) {
-  .twoColumns {
+  .twoColumns,
+  .sourceQueue {
     grid-template-columns: 1fr;
   }
 
