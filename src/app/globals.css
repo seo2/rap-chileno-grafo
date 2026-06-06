@@ -480,6 +480,52 @@ button, input { font: inherit; }
   font-size: 11px;
 }
 
+.reviewQuote {
+  border-left: 4px solid var(--green);
+  color: var(--soft);
+  line-height: 1.55;
+  margin: 20px 0 0;
+  padding-left: 16px;
+}
+
+.reviewChecklist {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.reviewStep {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.reviewStep > span {
+  align-items: center;
+  border: 1px solid rgba(30, 215, 96, 0.45);
+  border-radius: 14px;
+  color: var(--green);
+  display: inline-flex;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 800;
+  height: 40px;
+  justify-content: center;
+}
+
+.reviewStep p {
+  margin: 6px 0;
+}
+
+.reviewStep small {
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+}
+
 @media (max-width: 1100px) {
   .dashboardPanel {
     display: none;

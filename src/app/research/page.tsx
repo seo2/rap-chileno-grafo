@@ -18,7 +18,7 @@ export default function ResearchPage() {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Sprint 8 · Investigación externa</p>
+          <p className="eyebrow">Sprint 8/9 · Investigación externa</p>
           <h1>Cola de investigación</h1>
           <p>
             Esta vista transforma fuentes externas en candidatos editoriales. Nada de esta cola se publica como dato
@@ -46,7 +46,7 @@ export default function ResearchPage() {
           <div className="queueList">
             {queue.slice(0, 5).map((candidate) => (
               <article className="queueItem" key={candidate.id}>
-                <strong>{candidate.label}</strong>
+                <strong><Link className="textLink" href={`/research/${candidate.id}`}>{candidate.label}</Link></strong>
                 <span>{getCandidateKindLabel(candidate.kind)} · prioridad {candidate.priority}</span>
                 <small>{candidate.sourceName} · {candidate.curationStatus} · confianza {Math.round(candidate.confidence * 100)}%</small>
                 <p>{candidate.reviewAction}</p>
@@ -84,7 +84,7 @@ export default function ResearchPage() {
               {queue.map((candidate) => (
                 <article className="candidateCard" key={candidate.id}>
                   <p className="eyebrow">{getCandidateKindLabel(candidate.kind)} · {candidate.curationStatus}</p>
-                  <h3>{candidate.label}</h3>
+                  <h3><Link className="textLink" href={`/research/${candidate.id}`}>{candidate.label}</Link></h3>
                   <p>{candidate.claim}</p>
                   {candidate.extractedText ? <blockquote>{candidate.extractedText}</blockquote> : null}
                   <span>{candidate.sourceName} · confianza {Math.round(candidate.confidence * 100)}%</span>
