@@ -1,6 +1,7 @@
 export type Era = '80s' | '90s' | '2000s' | '2010s' | '2020s';
 export type CurationStatus = 'pending' | 'candidate' | 'reviewed' | 'verified' | 'rejected';
 export type SourceType = 'api' | 'article' | 'archive' | 'academic' | 'manual' | 'dataset';
+export type ResearchCandidateKind = 'candidate_artist' | 'candidate_album' | 'candidate_relationship' | 'candidate_event' | 'candidate_source_quote';
 
 export type EditorialEvidence = {
   sourceIds: string[];
@@ -58,5 +59,22 @@ export type Source = {
   url?: string;
   description: string;
   curationStatus: CurationStatus;
+  notes?: string;
+};
+
+export type ResearchCandidate = {
+  id: string;
+  kind: ResearchCandidateKind;
+  label: string;
+  sourceId: string;
+  sourceName: string;
+  sourceUrl?: string;
+  claim: string;
+  extractedText?: string;
+  relatedEntityIds: string[];
+  confidence: number;
+  priority: number;
+  curationStatus: Extract<CurationStatus, 'pending' | 'candidate'>;
+  reviewAction: string;
   notes?: string;
 };

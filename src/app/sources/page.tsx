@@ -30,6 +30,7 @@ export default function SourcesPage() {
             <span className="chip">{stats.byStatus.reviewed ?? 0} revisadas</span>
             <span className="chip">{stats.byType.api ?? 0} API</span>
             <span className="chip">{stats.byType.archive ?? 0} archivos</span>
+            <Link className="textLink" href="/research">Ver cola de investigación →</Link>
           </div>
         </section>
 

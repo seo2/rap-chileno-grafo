@@ -26,10 +26,33 @@ export const sources: Source[] = [
     curationStatus: 'pending',
   },
   {
+    id: 'source-rapchileno-cl',
+    name: 'rapchileno.cl',
+    sourceType: 'archive',
+    url: 'https://www.rapchileno.cl/',
+    description: 'Sitio candidato para ampliar artistas, noticias y referencias de escena por era.',
+    curationStatus: 'pending',
+    notes: 'Requiere revisión manual y deduplicación antes de convertir entradas en artistas del grafo.',
+  },
+  {
     id: 'source-shia-discos',
     name: 'SHIA discos nacionales',
     sourceType: 'archive',
     description: 'Archivo candidato para discografías nacionales.',
+    curationStatus: 'pending',
+  },
+  {
+    id: 'source-imperio-h2',
+    name: 'Imperio H2',
+    sourceType: 'archive',
+    description: 'Fuente candidata para entrevistas, notas y relaciones de escena hip hop.',
+    curationStatus: 'pending',
+  },
+  {
+    id: 'source-chile-vieja-escuela',
+    name: 'Chile Vieja Escuela',
+    sourceType: 'archive',
+    description: 'Fuente candidata para memoria de vieja escuela, crews, eventos y archivos visuales.',
     curationStatus: 'pending',
   },
   {

@@ -5,7 +5,19 @@ import { relationships } from '@/data/seed-relationships';
 import { sources } from '@/data/seed-sources';
 
 export { albums, artists, places, relationships, sources };
-export type { Album, Artist, CurationStatus, EditorialEvidence, Era, Place, Relationship, Source, SourceType } from '@/data/types';
+export type {
+  Album,
+  Artist,
+  CurationStatus,
+  EditorialEvidence,
+  Era,
+  Place,
+  Relationship,
+  ResearchCandidate,
+  ResearchCandidateKind,
+  Source,
+  SourceType,
+} from '@/data/types';
 
 export type NavigationItem = {
   label: string;
@@ -20,6 +32,7 @@ export const primaryNavigation: NavigationItem[] = [
   { label: 'Discos', href: '/albums', description: 'Álbumes y lanzamientos semilla' },
   { label: 'Timeline', href: '/timeline', description: 'Historia por décadas y eras' },
   { label: 'Fuentes', href: '/sources', description: 'Evidencia, APIs y archivos por revisar' },
+  { label: 'Investigación', href: '/research', description: 'Candidatos externos antes de publicar' },
   { label: 'Acerca', href: '/about', description: 'Propósito editorial del proyecto' },
 ];
 

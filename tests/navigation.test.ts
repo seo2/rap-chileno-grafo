@@ -6,7 +6,7 @@ import { albums, getAlbumArtist, getArtistBySlug, getArtistAlbums, getPrimaryNav
 test('getPrimaryNavigation exposes the Sprint 1 routes in product order', () => {
   assert.deepEqual(
     getPrimaryNavigation().map((item) => item.href),
-    ['/', '/graph', '/artists', '/albums', '/timeline', '/sources', '/about'],
+    ['/', '/graph', '/artists', '/albums', '/timeline', '/sources', '/research', '/about'],
   );
 });
 
