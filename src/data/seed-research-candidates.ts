@@ -53,6 +53,7 @@ export const researchCandidates: ResearchCandidate[] = [
     sourceName: 'Música Popular: Seo2',
     sourceUrl: 'https://www.musicapopular.cl/artista/seo2/',
     claim: 'La ficha de Música Popular respalda una relación histórica entre Seo2 y Makiza que debe seguir vinculada a evidencia revisada.',
+    extractedText: 'Seo2 aparece documentado en Música Popular como integrante vinculado a Makiza; usar esta ficha como evidencia secundaria antes de consolidar el vínculo.',
     relatedEntityIds: ['artist-seo2', 'artist-makiza'],
     confidence: 0.72,
     priority: 84,

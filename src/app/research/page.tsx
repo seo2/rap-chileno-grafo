@@ -32,6 +32,9 @@ export default function ResearchPage() {
             <span className="chip">{stats.byKind.candidate_event ?? 0} hitos</span>
             <span className="chip">{stats.byKind.candidate_source_quote ?? 0} citas</span>
           </div>
+          <div className="chipGroup">
+            <Link className="textLink" href="/research/promote">Abrir paquetes de promoción Sprint 10 →</Link>
+          </div>
         </section>
 
         <section className="contentCard sourceQueue">

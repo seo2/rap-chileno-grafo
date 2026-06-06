@@ -35,6 +35,22 @@ export type CandidateReviewDetail = {
   relatedEntityLabels: string[];
 };
 
+export type CandidatePromotionReadiness = {
+  ready: boolean;
+  blockers: string[];
+  summary: string;
+};
+
+export type CandidatePromotionPackage = CandidatePromotionReadiness & {
+  candidateId: string;
+  title: string;
+  target: CandidatePromotionTarget;
+  priority: number;
+  patchPreview: string;
+  auditTrail: string[];
+  safetyWarning: string;
+};
+
 const externalResearchSourceIds = [
   'source-redbull-cronologia',
   'source-rapchileno-cl',
@@ -127,6 +143,62 @@ export function getCandidateReviewDetail(id: string): CandidateReviewDetail | un
   };
 }
 
+export function getPromotionReadiness(id: string): CandidatePromotionReadiness | undefined {
+  const candidate = getResearchCandidateById(id);
+  if (!candidate) return undefined;
+
+  const blockers: string[] = [];
+  const extractedText = candidate.extractedText?.trim();
+  const notes = candidate.notes?.toLowerCase() ?? '';
+
+  if (candidate.curationStatus !== 'candidate') blockers.push('estado editorial todavía pendiente');
+  if (!candidate.sourceUrl) blockers.push('falta URL específica de fuente primaria');
+  if (!extractedText || /^pendiente/i.test(extractedText)) blockers.push('falta cita textual verificable');
+  if (!notes.includes('segunda') && !notes.includes('verificación') && !notes.includes('evidencia revisada')) {
+    blockers.push('requiere segunda fuente o nota de verificación cruzada');
+  }
+
+  const ready = blockers.length === 0;
+  return {
+    ready,
+    blockers,
+    summary: ready
+      ? 'Lista para promoción editorial manual: tiene estado candidato, URL primaria, texto extraído y nota de verificación cruzada.'
+      : `Bloqueada por ${blockers.length} requisito${blockers.length === 1 ? '' : 's'} editorial${blockers.length === 1 ? '' : 'es'}.`,
+  };
+}
+
+export function buildCandidatePromotionPackage(id: string): CandidatePromotionPackage | undefined {
+  const candidate = getResearchCandidateById(id);
+  const readiness = getPromotionReadiness(id);
+  if (!candidate || !readiness) return undefined;
+
+  const draft = buildCandidatePromotionDraft(candidate);
+  return {
+    ...readiness,
+    candidateId: candidate.id,
+    title: candidate.label,
+    target: draft.target,
+    priority: candidate.priority,
+    patchPreview: buildPatchPreview(candidate, draft.target),
+    auditTrail: [
+      `Fuente primaria: ${candidate.sourceName}${candidate.sourceUrl ? ` (${candidate.sourceUrl})` : ''}`,
+      `Claim revisado: ${candidate.claim}`,
+      `Texto/cita: ${candidate.extractedText ?? 'pendiente de capturar'}`,
+      `Entidades: ${candidate.relatedEntityIds.map(getEntityLabel).join(', ') || 'pendiente de resolver'}`,
+      `Confianza: ${Math.round(candidate.confidence * 100)}%`,
+    ],
+    safetyWarning: 'No muta el dataset semilla: este paquete es un parche editorial para copiar, revisar y aplicar manualmente.',
+  };
+}
+
+export function getResearchPromotionQueue(): CandidatePromotionPackage[] {
+  return getResearchCandidateQueue()
+    .map((candidate) => buildCandidatePromotionPackage(candidate.id))
+    .filter((candidate): candidate is CandidatePromotionPackage => Boolean(candidate))
+    .sort((a, b) => Number(b.ready) - Number(a.ready) || b.priority - a.priority || a.title.localeCompare(b.title));
+}
+
 export function getCandidatesBySource(sourceId: string): ResearchCandidate[] {
   return getResearchCandidateQueue().filter((candidate) => candidate.sourceId === sourceId);
 }
@@ -185,6 +257,96 @@ function getPromotionTargetLabel(target: CandidatePromotionTarget) {
     source_quote: 'una cita de fuente candidata',
   };
   return labels[target];
+}
+
+function buildPatchPreview(candidate: ResearchCandidate, target: CandidatePromotionTarget) {
+  const baseFields = [
+    `sourceIds: ['${candidate.sourceId}']`,
+    `sourceName: '${escapePatchValue(candidate.sourceName)}'`,
+    `sourceUrl: '${escapePatchValue(candidate.sourceUrl ?? 'pendiente')}'`,
+    `confidence: ${candidate.confidence}`,
+    `curationStatus: 'candidate'`,
+    `notes: '${escapePatchValue(candidate.notes ?? candidate.reviewAction)}'`,
+  ];
+
+  if (target === 'relationship') {
+    const [source = 'pendiente', targetEntity = 'pendiente'] = candidate.relatedEntityIds;
+    return [
+      'relationships.push({',
+      `  id: '${candidate.id.replace('candidate-', 'relationship-candidate-')}',`,
+      `  source: '${source}',`,
+      `  target: '${targetEntity}',`,
+      "  relationshipType: 'associated_with_era',",
+      '  weight: 1,',
+      ...baseFields.map((field) => `  ${field},`),
+      '});',
+    ].join('\n');
+  }
+
+  if (target === 'album') {
+    return [
+      'albums.push({',
+      `  id: '${candidate.id.replace('candidate-', 'album-candidate-')}',`,
+      `  slug: '${slugify(candidate.label)}',`,
+      `  title: '${escapePatchValue(candidate.label)}',`,
+      `  artistId: '${candidate.relatedEntityIds.find((id) => id.startsWith('artist-')) ?? 'pendiente'}',`,
+      '  year: 0,',
+      "  type: 'album',",
+      ...baseFields.map((field) => `  ${field},`),
+      '});',
+    ].join('\n');
+  }
+
+  if (target === 'artist') {
+    return [
+      'artists.push({',
+      `  id: '${candidate.id.replace('candidate-', 'artist-candidate-')}',`,
+      `  slug: '${slugify(candidate.label)}',`,
+      `  name: '${escapePatchValue(candidate.label)}',`,
+      "  city: 'pendiente',",
+      "  region: 'pendiente',",
+      "  era: '2020s',",
+      `  summary: '${escapePatchValue(candidate.claim)}',`,
+      '  tags: [],',
+      ...baseFields.map((field) => `  ${field},`),
+      '});',
+    ].join('\n');
+  }
+
+  if (target === 'timeline_event') {
+    return [
+      'timelineEvents.push({',
+      `  id: '${candidate.id.replace('candidate-', 'event-candidate-')}',`,
+      "  year: 0,",
+      `  title: '${escapePatchValue(candidate.label)}',`,
+      `  description: '${escapePatchValue(candidate.claim)}',`,
+      "  curationStatus: 'candidate',",
+      `  sourceId: '${candidate.sourceId}',`,
+      '});',
+    ].join('\n');
+  }
+
+  return [
+    'sourceQuotes.push({',
+    `  id: '${candidate.id.replace('candidate-', 'quote-candidate-')}',`,
+    `  entityIds: [${candidate.relatedEntityIds.map((id) => `'${id}'`).join(', ')}],`,
+    `  quote: '${escapePatchValue(candidate.extractedText ?? candidate.claim)}',`,
+    ...baseFields.map((field) => `  ${field},`),
+    '});',
+  ].join('\n');
+}
+
+function escapePatchValue(value: string) {
+  return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+function slugify(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '') || 'pendiente';
 }
 
 function getEntityLabel(entityId: string) {
