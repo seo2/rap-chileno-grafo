@@ -33,6 +33,7 @@ export const primaryNavigation: NavigationItem[] = [
   { label: 'Timeline', href: '/timeline', description: 'Historia por décadas y eras' },
   { label: 'Fuentes', href: '/sources', description: 'Evidencia, APIs y archivos por revisar' },
   { label: 'Investigación', href: '/research', description: 'Candidatos externos antes de publicar' },
+  { label: 'Curaduría', href: '/curation', description: 'Consola editorial de fuentes, claims, promociones y publicación' },
   { label: 'Acerca', href: '/about', description: 'Propósito editorial del proyecto' },
 ];
 

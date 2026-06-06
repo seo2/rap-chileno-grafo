@@ -618,6 +618,88 @@ button, input { font: inherit; }
   margin-top: 14px;
 }
 
+.curationStats {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-top: 24px;
+}
+
+.curationStats span {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  color: var(--muted);
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+}
+
+.curationStats strong {
+  color: var(--green);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 24px;
+}
+
+.curationLaneGrid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.curationLane {
+  display: flex;
+  flex-direction: column;
+}
+
+.curationLaneList {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.curationLaneItem {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 16px;
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+}
+
+.curationLaneItem p,
+.queueItem p {
+  color: var(--soft);
+  line-height: 1.45;
+  margin: 2px 0 0;
+}
+
+.curationLaneItem small {
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+}
+
+.curationBadge {
+  border-radius: 999px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  font-weight: 800;
+  justify-self: start;
+  padding: 6px 8px;
+  text-transform: uppercase;
+}
+
+.curationTone-success { border-color: rgba(30, 215, 96, 0.35); }
+.curationTone-info { border-color: rgba(45, 212, 191, 0.35); }
+.curationTone-warning { border-color: rgba(245, 158, 11, 0.35); }
+.curationTone-danger { border-color: rgba(248, 113, 113, 0.35); }
+
+.curationTone-success .curationBadge { background: rgba(30, 215, 96, 0.14); color: var(--green); }
+.curationTone-info .curationBadge { background: rgba(45, 212, 191, 0.14); color: var(--cyan); }
+.curationTone-warning .curationBadge { background: rgba(245, 158, 11, 0.14); color: var(--amber); }
+.curationTone-danger .curationBadge { background: rgba(248, 113, 113, 0.14); color: #f87171; }
+
 @media (max-width: 1100px) {
   .dashboardPanel {
     display: none;
@@ -637,7 +719,8 @@ button, input { font: inherit; }
   .twoColumns,
   .sourceQueue,
   .researchBoard,
-  .promotionColumns {
+  .promotionColumns,
+  .curationLaneGrid {
     grid-template-columns: 1fr;
   }
 

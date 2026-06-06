@@ -3,10 +3,10 @@ import test from 'node:test';
 
 import { albums, getAlbumArtist, getArtistBySlug, getArtistAlbums, getPrimaryNavigation } from '../src/lib/catalog';
 
-test('getPrimaryNavigation exposes the Sprint 1 routes in product order', () => {
+test('getPrimaryNavigation exposes the product routes in editorial order', () => {
   assert.deepEqual(
     getPrimaryNavigation().map((item) => item.href),
-    ['/', '/graph', '/artists', '/albums', '/timeline', '/sources', '/research', '/about'],
+    ['/', '/graph', '/artists', '/albums', '/timeline', '/sources', '/research', '/curation', '/about'],
   );
 });
 
