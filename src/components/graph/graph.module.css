@@ -150,10 +150,32 @@
 .liveEdge {
   opacity: 0.42;
   stroke-linecap: round;
+  transition: opacity 160ms ease, stroke-width 160ms ease;
+}
+
+.focusEdge {
+  opacity: 0.74;
+}
+
+.dimmedEdge {
+  opacity: 0.08;
 }
 
 .liveNodeGroup {
-  cursor: pointer;
+  cursor: grab;
+  transition: opacity 160ms ease;
+}
+
+.liveNodeGroup:active {
+  cursor: grabbing;
+}
+
+.relatedNode {
+  opacity: 1;
+}
+
+.dimmedNode {
+  opacity: 0.2;
 }
 
 .liveNodeGroup text {
@@ -170,6 +192,55 @@
   fill: url(#nodeGlow);
   stroke: rgba(30, 215, 96, 0.3);
   stroke-width: 2px;
+}
+
+.neighborHalo {
+  fill: none;
+  stroke: rgba(45, 212, 191, 0.34);
+  stroke-width: 2px;
+  stroke-dasharray: 5 5;
+}
+
+.graphMetaBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.graphMetaBar span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  padding: 7px 10px;
+}
+
+.searchBox {
+  display: grid;
+  gap: 6px;
+  min-width: min(360px, 100%);
+}
+
+.searchBox span {
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+}
+
+.searchBox input {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.34);
+  color: var(--text);
+  outline: none;
+  padding: 10px 13px;
+}
+
+.searchBox input:focus {
+  border-color: rgba(30, 215, 96, 0.65);
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, 0.12);
 }
 
 .nodePanel {
@@ -197,11 +268,24 @@
 }
 
 .panelStats span,
+.panelLink,
 .panelList div {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.035);
   padding: 10px;
+}
+
+.panelLink {
+  display: block;
+  margin-top: 10px;
+  color: var(--green);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.panelLink:hover {
+  border-color: rgba(30, 215, 96, 0.45);
 }
 
 .panelList {

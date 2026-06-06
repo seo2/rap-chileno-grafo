@@ -1,7 +1,7 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 
-import { filterGraphData, getGraphNodeDetail, prepareGraphCanvasData } from '../src/lib/graph';
+import { filterGraphData, getGraphNodeDetail, getGraphNeighborhood, getRelationshipSummary, prepareGraphCanvasData } from '../src/lib/graph';
 
 test('prepareGraphCanvasData returns nodes and edges ready for the interactive canvas', () => {
   const graph = prepareGraphCanvasData();
@@ -31,11 +31,44 @@ test('filterGraphData can focus reviewed pipeline by curation status', () => {
   assert.ok(pending.edges.every((edge) => pending.nodeIds.has(edge.source) && pending.nodeIds.has(edge.target)));
 });
 
-test('getGraphNodeDetail resolves selected node metadata and neighborhood', () => {
-  const detail = getGraphNodeDetail('artist-ana-tijoux');
+test('filterGraphData can search by artist, album, place and tag text', () => {
+  const graph = prepareGraphCanvasData();
+  const seo2 = filterGraphData(graph, { query: 'chiloé' });
 
-  assert.equal(detail?.label, 'Ana Tijoux');
+  assert.ok(seo2.nodes.some((node) => node.id === 'artist-seo2'));
+  assert.ok(seo2.nodes.some((node) => node.id === 'place-castro'));
+  assert.equal(seo2.nodes.some((node) => node.id === 'artist-ana-tijoux'), false);
+  assert.ok(seo2.edges.every((edge) => seo2.nodeIds.has(edge.source) && seo2.nodeIds.has(edge.target)));
+});
+
+test('getRelationshipSummary returns human readable labels instead of raw ids', () => {
+  const summary = getRelationshipSummary('rel-seo2-makiza');
+
+  assert.equal(summary?.typeLabel, 'integrante de');
+  assert.equal(summary?.sourceLabel, 'Seo2');
+  assert.equal(summary?.targetLabel, 'Makiza');
+  assert.equal(summary?.display, 'Seo2 → integrante de → Makiza');
+});
+
+test('getGraphNeighborhood identifies the selected node and its direct neighbors', () => {
+  const neighborhood = getGraphNeighborhood('artist-seo2');
+
+  assert.ok(neighborhood.selectedNodeIds.has('artist-seo2'));
+  assert.ok(neighborhood.neighborNodeIds.has('artist-makiza'));
+  assert.ok(neighborhood.neighborNodeIds.has('album-relativo-absoluto'));
+  assert.ok(neighborhood.edgeIds.has('rel-seo2-makiza'));
+  assert.equal(neighborhood.isDimmedNode('artist-seo2'), false);
+  assert.equal(neighborhood.isDimmedNode('artist-ana-tijoux'), true);
+});
+
+test('getGraphNodeDetail resolves selected node metadata, readable relationships and neighborhood', () => {
+  const detail = getGraphNodeDetail('artist-seo2');
+
+  assert.equal(detail?.label, 'Seo2');
   assert.equal(detail?.kind, 'artist');
-  assert.ok(detail?.sources.some((source) => source.name === 'Curaduría inicial'));
-  assert.ok(detail?.relationships.some((relationship) => relationship.id === 'rel-ana-makiza'));
+  assert.equal(detail?.href, '/artists/seo2');
+  assert.ok(detail?.sources.some((source) => source.name === 'Música Popular: Seo2'));
+  assert.ok(detail?.relationships.some((relationship) => relationship.id === 'rel-seo2-makiza'));
+  assert.ok(detail?.relationshipSummaries.some((relationship) => relationship.display === 'Seo2 → integrante de → Makiza'));
+  assert.ok(detail?.neighborNodeIds.includes('artist-makiza'));
 });

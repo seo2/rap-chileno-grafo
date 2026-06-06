@@ -6,9 +6,9 @@ export default function GraphPage() {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Vista principal · Sprint 3</p>
+          <p className="eyebrow">Vista principal · Sprint 4</p>
           <h1>Grafo interactivo del rap chileno</h1>
-          <p>Primera versión D3 de la red: nodos de artistas, discos y lugares; enlaces por relaciones reales del dataset; filtros por tipo y estado curatorial; panel de detalle al seleccionar un nodo.</p>
+          <p>Grafo D3 mejorado con búsqueda, relaciones legibles, selección de vecinos, arrastre de nodos y acceso directo a fichas de artista desde el panel de detalle.</p>
         </section>
         <GraphCanvas />
       </main>
