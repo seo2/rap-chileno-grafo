@@ -261,6 +261,126 @@ button, input { font: inherit; }
   font-size: 11px;
 }
 
+.mapFilters,
+.territorialMapBoard {
+  display: grid;
+  gap: 18px;
+}
+
+.mapCanvas {
+  position: relative;
+  min-height: 430px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 48% 26%, rgba(30, 215, 96, 0.18), transparent 18%),
+    radial-gradient(circle at 55% 70%, rgba(113, 112, 255, 0.2), transparent 24%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+}
+
+.mapCanvas::before {
+  content: '';
+  position: absolute;
+  inset: 30px 22% 34px 33%;
+  border: 1px solid rgba(30, 215, 96, 0.22);
+  border-radius: 55% 42% 60% 46%;
+  transform: rotate(-11deg);
+  box-shadow: rgba(30, 215, 96, 0.12) 0 0 60px inset;
+}
+
+.mapCanvas::after {
+  content: 'Chile · escenas semilla';
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.mapPin {
+  position: absolute;
+  left: var(--pin-x);
+  top: var(--pin-y);
+  z-index: 1;
+  display: grid;
+  min-width: 112px;
+  gap: 3px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(30, 215, 96, 0.35);
+  background: rgba(5, 6, 7, 0.9);
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: rgba(30, 215, 96, 0.18) 0 0 34px;
+}
+
+.mapPin strong {
+  color: var(--green);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.mapPin span {
+  color: var(--soft);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+}
+
+.territorialSceneGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.territorialSceneCard {
+  display: grid;
+  gap: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 18px;
+  padding: 16px;
+  scroll-margin-top: 92px;
+}
+
+.territorialSceneCard h2 {
+  margin: 0;
+}
+
+.territorialSceneCard header span,
+.mapStatusGrid span {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+}
+
+.mapStatusGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mapStatusGrid span {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.mapStatusGrid strong {
+  display: block;
+  color: var(--green);
+  font-size: 20px;
+}
+
+.sceneArtistList {
+  display: grid;
+  gap: 10px;
+}
+
 .sourceQueue {
   display: grid;
   grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.3fr);

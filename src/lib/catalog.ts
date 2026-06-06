@@ -52,6 +52,7 @@ export type AlbumDetail = {
 export const primaryNavigation: NavigationItem[] = [
   { label: 'Inicio', href: '/', description: 'Portada del archivo vivo' },
   { label: 'Grafo', href: '/graph', description: 'Red de artistas, discos, lugares y relaciones' },
+  { label: 'Mapa', href: '/map', description: 'Escenas territoriales, ciudades y provenance de lugar' },
   { label: 'Artistas', href: '/artists', description: 'Catálogo curatorial inicial' },
   { label: 'Discos', href: '/albums', description: 'Álbumes y lanzamientos semilla' },
   { label: 'Timeline', href: '/timeline', description: 'Historia por décadas y eras' },

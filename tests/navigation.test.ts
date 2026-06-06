@@ -6,7 +6,7 @@ import { albums, getAlbumArtist, getArtistBySlug, getArtistAlbums, getPrimaryNav
 test('getPrimaryNavigation exposes the product routes in editorial order', () => {
   assert.deepEqual(
     getPrimaryNavigation().map((item) => item.href),
-    ['/', '/graph', '/artists', '/albums', '/timeline', '/sources', '/research', '/curation', '/about'],
+    ['/', '/graph', '/map', '/artists', '/albums', '/timeline', '/sources', '/research', '/curation', '/about'],
   );
 });
 
