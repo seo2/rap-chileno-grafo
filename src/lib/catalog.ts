@@ -3,6 +3,7 @@ import { artists } from '@/data/seed-artists';
 import { places } from '@/data/seed-places';
 import { relationships } from '@/data/seed-relationships';
 import { sources } from '@/data/seed-sources';
+import type { Album, Artist, CurationStatus, Relationship, Source } from '@/data/types';
 
 export { albums, artists, places, relationships, sources };
 export type {
@@ -23,6 +24,26 @@ export type NavigationItem = {
   label: string;
   href: string;
   description: string;
+};
+
+export type AlbumDecadeGroup = {
+  decade: string;
+  albums: Album[];
+};
+
+export type AlbumDetail = {
+  album: Album;
+  artist?: Artist;
+  relationships: Relationship[];
+  relationshipSummaries: Array<{
+    id: string;
+    display: string;
+    year?: number;
+    curationStatus: CurationStatus;
+    confidence: number;
+  }>;
+  sources: Source[];
+  relatedArtistSlugs: string[];
 };
 
 export const primaryNavigation: NavigationItem[] = [
@@ -57,6 +78,79 @@ export function getArtistAlbums(slug: string) {
 
 export function getAlbumArtist(album: { artistId: string }) {
   return artists.find((artist) => artist.id === album.artistId);
+}
+
+export function getAlbumBySlug(slug: string) {
+  return albums.find((album) => album.slug === slug);
+}
+
+export function getAlbumRelationships(albumId: string) {
+  return relationships.filter((relationship) => relationship.source === albumId || relationship.target === albumId);
+}
+
+export function getAlbumDetail(slug: string): AlbumDetail | undefined {
+  const album = getAlbumBySlug(slug);
+  if (!album) return undefined;
+
+  const artist = getAlbumArtist(album);
+  const albumRelationships = getAlbumRelationships(album.id);
+  const albumSourceIds = new Set([
+    ...album.sourceIds,
+    ...albumRelationships.flatMap((relationship) => relationship.sourceIds),
+  ]);
+  const albumSources = sources.filter((source) => albumSourceIds.has(source.id));
+  const relatedArtistIds = new Set([
+    album.artistId,
+    ...albumRelationships.flatMap((relationship) => [relationship.source, relationship.target]).filter((id) => id.startsWith('artist-')),
+  ]);
+
+  return {
+    album,
+    artist,
+    relationships: albumRelationships,
+    relationshipSummaries: albumRelationships.map((relationship) => ({
+      id: relationship.id,
+      display: `${getEntityLabel(relationship.source)} → ${getRelationshipTypeLabel(relationship.relationshipType)} → ${getEntityLabel(relationship.target)}`,
+      year: relationship.year,
+      curationStatus: relationship.curationStatus,
+      confidence: relationship.confidence,
+    })),
+    sources: albumSources,
+    relatedArtistSlugs: artists.filter((candidate) => relatedArtistIds.has(candidate.id)).map((candidate) => candidate.slug),
+  };
+}
+
+export function getAlbumsByDecade(): AlbumDecadeGroup[] {
+  const groups = albums.reduce<Record<string, Album[]>>((acc, album) => {
+    const decade = `${Math.floor(album.year / 10) * 10}s`;
+    acc[decade] = [...(acc[decade] ?? []), album];
+    return acc;
+  }, {});
+
+  return Object.entries(groups)
+    .map(([decade, decadeAlbums]) => ({
+      decade,
+      albums: [...decadeAlbums].sort((a, b) => a.year - b.year || a.title.localeCompare(b.title)),
+    }))
+    .sort((a, b) => a.decade.localeCompare(b.decade));
+}
+
+function getEntityLabel(entityId: string) {
+  return artists.find((artist) => artist.id === entityId)?.name
+    ?? albums.find((album) => album.id === entityId)?.title
+    ?? places.find((place) => place.id === entityId)?.name
+    ?? entityId;
+}
+
+function getRelationshipTypeLabel(type: Relationship['relationshipType']) {
+  const labels: Record<Relationship['relationshipType'], string> = {
+    collaborated_with: 'colaboró con',
+    member_of: 'integrante de',
+    released: 'publicó',
+    from_place: 'desde',
+    associated_with_era: 'asociado a era',
+  };
+  return labels[type];
 }
 
 export function getRelationshipEdges() {

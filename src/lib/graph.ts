@@ -126,6 +126,7 @@ export function getGraphNodes(): GraphNode[] {
         confidence: album.confidence,
         sourceIds: album.sourceIds,
         sourceType: album.sourceType,
+        href: `/albums/${album.slug}`,
       };
     }),
     ...places.map((place) => ({
