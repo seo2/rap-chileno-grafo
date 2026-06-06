@@ -50,6 +50,17 @@ export default async function SourceDetailPage({ params }: { params: Promise<{ i
           </div>
         </aside>
 
+        {source.id === 'source-spotify-web-api' ? (
+          <section className="contentCard fullSpan">
+            <p className="sectionTitle">Sprint 7 · importer</p>
+            <h2>Importar catálogo real desde Spotify</h2>
+            <p className="muted">
+              Esta fuente ya tiene cliente y script de importación. El flujo produce candidatos de catálogo, no reemplaza datos históricos curados.
+            </p>
+            <code className="commandBlock">npm run spotify:import -- --artist-slug seo2 --spotify-artist &lt;spotify-artist-id-o-url&gt;</code>
+          </section>
+        ) : null}
+
         <section className="contentCard fullSpan">
           <p className="sectionTitle">Datos extraídos</p>
           <h2>Claims y evidencia en revisión</h2>

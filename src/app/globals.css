@@ -289,6 +289,19 @@ button, input { font: inherit; }
   line-height: 1.5;
 }
 
+.commandBlock {
+  display: block;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 14px;
+  color: var(--green);
+  font-family: var(--font-jetbrains-mono), monospace;
+  margin-top: 14px;
+  overflow-x: auto;
+  padding: 14px;
+  white-space: nowrap;
+}
+
 .timeline,
 .timelineBoard {
   display: grid;
