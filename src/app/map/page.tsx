@@ -49,11 +49,11 @@ export default async function MapPage({ searchParams }: MapPageProps) {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Sprint 15 · Mapa territorial</p>
+          <p className="eyebrow">Mapa territorial</p>
           <h1>Mapa del rap chileno por escenas</h1>
           <p>
             Una vista territorial para leer de dónde salen los artistas, qué ciudades ya tienen evidencia y cuáles siguen como
-            candidatos editoriales. El mapa se arma desde relaciones <code>from_place</code>, no desde texto libre, para mantener trazabilidad.
+            candidatos editoriales. El mapa se arma desde relaciones verificables para mantener trazabilidad.
           </p>
           <div className="timelineStats" aria-label="Resumen territorial">
             <span><strong>{stats.places}</strong> lugares</span>

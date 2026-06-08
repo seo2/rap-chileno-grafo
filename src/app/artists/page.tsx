@@ -11,7 +11,7 @@ export default function ArtistsPage() {
         <section className="heroCard">
           <p className="eyebrow">Catálogo curatorial</p>
           <h1>Artistas</h1>
-          <p>Listado semilla de artistas de rap chileno. Las fichas dinámicas ya quedan preparadas para sumar discos, relaciones y fuentes verificadas.</p>
+          <p>Directorio editorial de artistas de rap chileno, preparado para cruzar biografía, territorio, discos, relaciones y fuentes verificadas.</p>
         </section>
         <section className="contentCard">
           <ArtistList artists={artists} />

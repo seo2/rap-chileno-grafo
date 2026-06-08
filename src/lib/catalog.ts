@@ -53,6 +53,7 @@ export const primaryNavigation: NavigationItem[] = [
   { label: 'Inicio', href: '/', description: 'Portada del archivo vivo' },
   { label: 'Grafo', href: '/graph', description: 'Red de artistas, discos, lugares y relaciones' },
   { label: 'Mapa', href: '/map', description: 'Escenas territoriales, ciudades y provenance de lugar' },
+  { label: 'Buscar', href: '/search', description: 'Búsqueda global por artistas, discos, lugares, relaciones y fuentes' },
   { label: 'Artistas', href: '/artists', description: 'Catálogo curatorial inicial' },
   { label: 'Discos', href: '/albums', description: 'Álbumes y lanzamientos semilla' },
   { label: 'Timeline', href: '/timeline', description: 'Historia por décadas y eras' },
@@ -77,7 +78,13 @@ export function getArtistBySlug(slug: string) {
 export function getArtistAlbums(slug: string) {
   const artist = getArtistBySlug(slug);
   if (!artist) return [];
-  return albums.filter((album) => album.artistId === artist.id);
+  const releasedAlbumIds = new Set(relationships
+    .filter((relationship) => relationship.source === artist.id && relationship.relationshipType === 'released')
+    .map((relationship) => relationship.target));
+
+  return albums
+    .filter((album) => album.artistId === artist.id || releasedAlbumIds.has(album.id))
+    .sort((a, b) => a.year - b.year || a.title.localeCompare(b.title));
 }
 
 export function getAlbumArtist(album: { artistId: string }) {
@@ -148,14 +155,14 @@ export function getAlbumsByDecade(): AlbumDecadeGroup[] {
     .sort((a, b) => a.decade.localeCompare(b.decade));
 }
 
-function getEntityLabel(entityId: string) {
+export function getEntityLabel(entityId: string) {
   return artists.find((artist) => artist.id === entityId)?.name
     ?? albums.find((album) => album.id === entityId)?.title
     ?? places.find((place) => place.id === entityId)?.name
     ?? entityId;
 }
 
-function getRelationshipTypeLabel(type: Relationship['relationshipType']) {
+export function getRelationshipTypeLabel(type: Relationship['relationshipType']) {
   const labels: Record<Relationship['relationshipType'], string> = {
     collaborated_with: 'colaboró con',
     member_of: 'integrante de',

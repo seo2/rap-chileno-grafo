@@ -14,8 +14,8 @@ test('seed entities expose editorial evidence fields', () => {
 
   const album = albums.find((candidate) => candidate.id === 'album-ser-humano');
   assert.ok(album);
-  assert.ok(album.sourceIds.includes('source-curaduria-inicial'));
-  assert.equal(album.curationStatus, 'candidate');
+  assert.ok(album.sourceIds.includes('source-musica-popular-tiro-de-gracia'));
+  assert.equal(album.curationStatus, 'reviewed');
 });
 
 test('relationships point to sources and have curation status', () => {

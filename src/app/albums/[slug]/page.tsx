@@ -40,7 +40,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
         </section>
 
         <section className="contentCard">
-          <p className="sectionTitle">Créditos semilla</p>
+          <p className="sectionTitle">Créditos documentados</p>
           <h2>Artista principal</h2>
           {artist ? (
             <article className="listCard">
@@ -57,7 +57,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
         </section>
 
         <section className="contentCard fullSpan">
-          <p className="sectionTitle">Tracklist semilla</p>
+          <p className="sectionTitle">Tracklist documentado</p>
           <h2>Canciones curadas</h2>
           {tracklist.length > 0 ? (
             <ol className="trackList">

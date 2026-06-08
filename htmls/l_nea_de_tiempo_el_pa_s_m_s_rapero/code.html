@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EL PAÍS MÁS RAPERO - Línea de Tiempo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary-fixed-dim": "#b0cdbb",
+                        "inverse-on-surface": "#f4f0ef",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "background": "#fdf8f8",
+                        "primary-fixed": "#e5e2e3",
+                        "inverse-primary": "#c8c6c7",
+                        "on-primary-container": "#858384",
+                        "on-background": "#1c1b1b",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#062014",
+                        "on-secondary-fixed-variant": "#822719",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f1edec",
+                        "primary-fixed-dim": "#c8c6c7",
+                        "on-tertiary-fixed-variant": "#324c3e",
+                        "on-surface-variant": "#46474a",
+                        "secondary-fixed": "#ffdad4",
+                        "outline-variant": "#c7c6ca",
+                        "primary-container": "#1b1b1c",
+                        "outline": "#76777b",
+                        "inverse-surface": "#313030",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#fdf8f8",
+                        "tertiary": "#000000",
+                        "secondary-fixed-dim": "#ffb4a7",
+                        "primary": "#000000",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#1b1b1c",
+                        "surface-tint": "#5f5e5f",
+                        "surface-container-low": "#f7f3f2",
+                        "surface-bright": "#fdf8f8",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-high": "#ebe7e7",
+                        "on-primary-fixed-variant": "#474647",
+                        "secondary-container": "#fd826d",
+                        "on-secondary-fixed": "#400200",
+                        "surface-dim": "#ddd9d9",
+                        "on-secondary-container": "#721b0f",
+                        "secondary": "#a23e2e",
+                        "on-tertiary-container": "#6e8a79",
+                        "on-tertiary-fixed": "#062014",
+                        "tertiary-fixed": "#ccead6",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Libre Caslon Text"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "data-mono": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-lg-mobile": ["Libre Caslon Text"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fdf8f8;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: #000000;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        @media (max-width: 768px) {
+            .timeline-line::before {
+                left: 24px;
+                transform: none;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-14 bg-surface dark:bg-surface-dim border-b border-on-surface dark:border-outline">
+<button class="p-2 hover:bg-surface-variant transition-opacity">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md tracking-tighter text-primary dark:text-primary-fixed">EL PAÍS MÁS RAPERO</h1>
+<button class="p-2 hover:bg-surface-variant transition-opacity">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-14 pb-16 min-h-screen max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Sticky Decade Selector -->
+<nav class="sticky top-14 z-40 py-4 bg-surface/90 backdrop-blur-sm border-b border-primary/10 flex justify-center gap-4 overflow-x-auto no-scrollbar">
+<a class="px-4 py-1 text-label-caps font-label-caps border border-primary text-on-surface hover:bg-primary hover:text-on-primary transition-colors" href="#80s">80s</a>
+<a class="px-4 py-1 text-label-caps font-label-caps border border-primary bg-primary text-on-primary" href="#90s">90s</a>
+<a class="px-4 py-1 text-label-caps font-label-caps border border-primary text-on-surface hover:bg-primary hover:text-on-primary transition-colors" href="#00s">00s</a>
+<a class="px-4 py-1 text-label-caps font-label-caps border border-primary text-on-surface hover:bg-primary hover:text-on-primary transition-colors" href="#10s">10s</a>
+<a class="px-4 py-1 text-label-caps font-label-caps border border-primary text-on-surface hover:bg-primary hover:text-on-primary transition-colors" href="#20s">20s</a>
+</nav>
+<!-- Timeline Section -->
+<div class="relative mt-8 timeline-line py-12">
+<!-- 1988: Los Panteras Negras -->
+<section class="relative mb-16 md:flex items-center group" id="80s">
+<div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+<span class="text-display-lg font-display-lg block mb-1">1988</span>
+<div class="inline-flex items-center gap-2 border border-secondary text-secondary px-2 py-0.5 rounded-none">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-caps font-label-caps">Lanzamiento Clave</span>
+</div>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border-4 border-surface hidden md:block z-10"></div>
+<div class="md:w-1/2 md:pl-12">
+<div class="border border-outline p-6 bg-surface-container-low hover:bg-surface-container transition-colors">
+<h3 class="text-headline-md font-headline-md mb-2">Los Panteras Negras - De la calle</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Registro fundamental grabado en cassette que define la estética del rap poblacional en Santiago. Una cruda crónica de la periferia.</p>
+<img alt="De la calle" class="w-full h-48 object-cover grayscale brightness-90 border border-primary" data-alt="A gritty, black and white high-contrast archival photograph of a vintage cassette tape labeled 'De la Calle' resting on a worn concrete surface. The lighting is harsh and dramatic, mimicking an 80s street-level documentary aesthetic. The image captures the raw, tactile essence of early Chilean hip-hop culture with visible grain and a minimalist archival mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG28hJenNu6hZi3htOY4eiyw95x1mTg3KmZSWpBsfMUTbdkNHuhTAiLBLJ9rRMvN05pNIzBloLhz3ccnp20i7xIN8rZcqVIRMIERHddl1h2J8RKfHCutKoA1y_VTPiy5LrwBP0VFIfJ_qhYGfL5e66GYgpvJ2HOkHyCIRJKj5zZ9D4n7e7g6X5DVjwa0LefI_thbHAa0aVouclcXaOy-A1of9wExSISTgYmupAWLFGeM-dCZUobL2OWuWK4iy8vJgJeQHWoL3UQj8"/>
+</div>
+</div>
+</section>
+<!-- 1997: Tiro de Gracia -->
+<section class="relative mb-16 md:flex flex-row-reverse items-center group" id="90s">
+<div class="md:w-1/2 md:pl-12 mb-4 md:mb-0">
+<span class="text-display-lg font-display-lg block mb-1">1997</span>
+<div class="inline-flex items-center gap-2 border border-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-none">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+<span class="text-label-caps font-label-caps">Hito Histórico</span>
+</div>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border-4 border-surface hidden md:block z-10"></div>
+<div class="md:w-1/2 md:pr-12 text-right">
+<div class="border border-outline p-6 bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-end gap-2 mb-2">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-label-caps font-label-caps text-tertiary">Verified Archive</span>
+</div>
+<h3 class="text-headline-md font-headline-md mb-2">Tiro de Gracia - Ser hümano!!</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">El álbum que llevó el rap chileno al mainstream continental. Con una producción sofisticada que mezclaba funk, soul y líricas sociales, redefinió la industria local.</p>
+</div>
+</div>
+</section>
+<!-- 2003: Makiza -->
+<section class="relative mb-16 md:flex items-center group" id="00s">
+<div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+<span class="text-display-lg font-display-lg block mb-1">2003</span>
+<div class="inline-flex items-center gap-2 border border-primary-container text-on-primary-fixed-variant px-2 py-0.5 rounded-none">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-label-caps font-label-caps">Aparición en Prensa</span>
+</div>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border-4 border-surface hidden md:block z-10"></div>
+<div class="md:w-1/2 md:pl-12">
+<div class="border border-outline p-6 bg-surface-container-low hover:bg-surface-container transition-colors">
+<h3 class="text-headline-md font-headline-md mb-2">Makiza - Casino Royale</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Tras el éxito internacional de Anita Tijoux, el grupo lanza su tercer larga duración. Una pieza de arquitectura sonora minimalista y cosmopolita.</p>
+<div class="grid grid-cols-2 gap-2">
+<img alt="Studio" class="w-full h-32 object-cover grayscale border border-outline" data-alt="A vintage music studio with analog mixing boards and records scattered about, captured in a desaturated, high-contrast black and white style. The lighting is moody and focused, highlighting the mechanical details of the equipment. The aesthetic is archival and editorial, emphasizing the historical depth of 2000s music production in Chile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ9lSfJLJHhFRUoRcf6ucx90DdbEbBPD62Hto9NLiD0wq5OxwxQLkDeEkX13mZKiZA7VOMfEU7uGQksRDshIUn2HEZmtUQyCsRZ5Kb89uPItznsqVG6inxFzK47KsYAJibqfgxG2n6Gv49mwtZxTH9xP7fVYHcfHgY5M86BXkBLLN9NR4Py2UbQp-4_nfZ40m9K3fTpTHtBBjJs3k2CseJh81ahciOjuHgC5YHIwj6Gie30b9RfJTaDbruy9tSNz0dSZM_ilZxqUU"/>
+<img alt="Vinyl" class="w-full h-32 object-cover grayscale border border-outline" data-alt="A close-up shot of a turntable needle hitting a black vinyl record. The image is rendered in a gritty, textured monochrome palette with sharp contrasts and subtle ink-bleed effects. It reflects a sophisticated, curatorial hip-hop aesthetic, focusing on the tactile nature of analog sound." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpJ64u45S4D4RA4gh264Btb0pNaRp9TxRczIGkkY1I4sLtpZdLQ9II7j1anLWBk2jkkUqJgg8dnbZW0fXzdg35IlLrh-FEmvGDvWuvMrBsZvY9v82dCkvWbkgl3D03nGgTnlkmViv02ZCN8U6gqVOMSSOwOz-IqZY8LuIFhv9KbHeoGWVeEgKa7afhFxgY9q21q-284OryqlNNWk2nbYpnDI4RZHkrlpAo9PTop0Jc_Bg46jHLpdaApgGDrSHP_5XOjZ1HbXRXDZc"/>
+</div>
+</div>
+</div>
+</section>
+<!-- 2011: Portavoz -->
+<section class="relative mb-16 md:flex flex-row-reverse items-center group" id="10s">
+<div class="md:w-1/2 md:pl-12 mb-4 md:mb-0">
+<span class="text-display-lg font-display-lg block mb-1">2011</span>
+<div class="inline-flex items-center gap-2 border border-secondary text-secondary px-2 py-0.5 rounded-none">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-caps font-label-caps">Lanzamiento Clave</span>
+</div>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border-4 border-surface hidden md:block z-10"></div>
+<div class="md:w-1/2 md:pr-12 text-right">
+<div class="border border-outline p-6 bg-surface-container-low hover:bg-surface-container transition-colors">
+<h3 class="text-headline-md font-headline-md mb-2">Portavoz - Escribo Rap con R de Revolución</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Un regreso a las raíces del rap político y social. Portavoz se consolida como la voz de una generación que despierta ante las injusticias sistémicas.</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 bg-surface dark:bg-surface-dim border-t-2 border-primary dark:border-primary-fixed">
+<a class="flex flex-col items-center justify-center text-on-surface dark:text-on-surface-variant py-1 hover:bg-surface-container-highest flex-1 transition-transform active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-caps font-label-caps">HOME</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container py-1 flex-1 transition-transform active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-label-caps font-label-caps">GRAPH</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface dark:text-on-surface-variant py-1 hover:bg-surface-container-highest flex-1 transition-transform active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-caps font-label-caps">ARTISTS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface dark:text-on-surface-variant py-1 hover:bg-surface-container-highest flex-1 transition-transform active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="text-label-caps font-label-caps">SOURCES</span>
+</a>
+</footer>
+<script>
+        // Smooth scroll for decade selector
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const headerOffset = 110;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Update active state
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.classList.remove('bg-primary', 'text-on-primary');
+                    a.classList.add('text-on-surface');
+                });
+                this.classList.add('bg-primary', 'text-on-primary');
+                this.classList.remove('text-on-surface');
+            });
+        });
+
+        // Simple intersection observer to highlight current decade
+        const observerOptions = {
+            root: null,
+            threshold: 0.5,
+            rootMargin: '-100px 0px -50% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('nav a').forEach(a => {
+                        if (a.getAttribute('href') === `#${id}`) {
+                            a.classList.add('bg-primary', 'text-on-primary');
+                            a.classList.remove('text-on-surface');
+                        } else {
+                            a.classList.remove('bg-primary', 'text-on-primary');
+                            a.classList.add('text-on-surface');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body></html>

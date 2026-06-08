@@ -18,7 +18,7 @@ export default function ResearchPage() {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Sprint 8/9 · Investigación externa</p>
+          <p className="eyebrow">Investigación externa</p>
           <h1>Cola de investigación</h1>
           <p>
             Esta vista transforma fuentes externas en candidatos editoriales. Nada de esta cola se publica como dato
@@ -33,7 +33,7 @@ export default function ResearchPage() {
             <span className="chip">{stats.byKind.candidate_source_quote ?? 0} citas</span>
           </div>
           <div className="chipGroup">
-            <Link className="textLink" href="/research/promote">Abrir paquetes de promoción Sprint 10 →</Link>
+            <Link className="textLink" href="/research/promote">Abrir paquetes de promoción editorial →</Link>
           </div>
         </section>
 
@@ -82,7 +82,7 @@ export default function ResearchPage() {
 
           <div className="contentCard">
             <p className="sectionTitle">Candidatos</p>
-            <h2>Claims antes del grafo</h2>
+            <h2>Hallazgos antes del grafo</h2>
             <div className="candidateList">
               {queue.map((candidate) => (
                 <article className="candidateCard" key={candidate.id}>

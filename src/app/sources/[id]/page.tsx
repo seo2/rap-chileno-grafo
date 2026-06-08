@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { SiteShell } from '@/components/layout/SiteShell';
-import { sources } from '@/lib/catalog';
+import { getEntityLabel, getRelationshipTypeLabel, sources } from '@/lib/catalog';
 import { getSourceDetail } from '@/lib/sources';
 
 export function generateStaticParams() {
@@ -45,15 +45,20 @@ export default async function SourceDetailPage({ params }: { params: Promise<{ i
             {entities.artists.map((artist) => <Link className="listCard" href={`/artists/${artist.slug}`} key={artist.id}><strong>{artist.name}</strong><span>artista · {artist.curationStatus}</span></Link>)}
             {entities.albums.map((album) => <article className="listCard" key={album.id}><strong>{album.title}</strong><span>disco · {album.year} · {album.curationStatus}</span></article>)}
             {entities.places.map((place) => <article className="listCard" key={place.id}><strong>{place.name}</strong><span>lugar · {place.type} · {place.curationStatus}</span></article>)}
-            {entities.relationships.map((relationship) => <article className="listCard" key={relationship.id}><strong>{relationship.relationshipType.replaceAll('_', ' ')}</strong><span>{relationship.source} → {relationship.target} · {relationship.curationStatus}</span></article>)}
+            {entities.relationships.map((relationship) => (
+              <article className="listCard" key={relationship.id}>
+                <strong>{getRelationshipTypeLabel(relationship.relationshipType)}</strong>
+                <span>{getEntityLabel(relationship.source)} → {getEntityLabel(relationship.target)} · {relationship.curationStatus}</span>
+              </article>
+            ))}
             {mentionSummary.totalMentions === 0 ? <p className="muted">Esta fuente todavía no tiene entidades enlazadas.</p> : null}
           </div>
         </aside>
 
         {source.id === 'source-spotify-web-api' ? (
           <section className="contentCard fullSpan">
-            <p className="sectionTitle">Sprint 7 · importer</p>
-            <h2>Importar catálogo real desde Spotify</h2>
+            <p className="sectionTitle">Importador de catálogo</p>
+            <h2>Traer catálogo real desde Spotify</h2>
             <p className="muted">
               Esta fuente ya tiene cliente y script de importación. El flujo produce candidatos de catálogo, no reemplaza datos históricos curados.
             </p>

@@ -18,7 +18,7 @@ export default function SourcesPage() {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Sprint 6 · Fuentes y curaduría</p>
+          <p className="eyebrow">Mesa editorial · fuentes y curaduría</p>
           <h1>Fuentes</h1>
           <p>
             El sitio separa catálogo musical de evidencia histórica. Cada fuente muestra qué entidades menciona,
@@ -28,9 +28,9 @@ export default function SourcesPage() {
             <span className="chip">{stats.total} fuentes</span>
             <span className="chip">{stats.byStatus.pending ?? 0} pendientes</span>
             <span className="chip">{stats.byStatus.reviewed ?? 0} revisadas</span>
-            <span className="chip">{stats.byType.api ?? 0} API</span>
+            <span className="chip">{stats.byType.api ?? 0} catálogo digital</span>
             <span className="chip">{stats.byType.archive ?? 0} archivos</span>
-            <Link className="textLink" href="/research">Ver cola de investigación →</Link>
+            <Link className="textLink" href="/research">Ver investigación pendiente →</Link>
           </div>
         </section>
 
@@ -38,7 +38,7 @@ export default function SourcesPage() {
           <div>
             <p className="sectionTitle">Cola editorial</p>
             <h2>Próximas revisiones sugeridas</h2>
-            <p className="muted">Priorizamos fuentes pendientes y datos con baja confianza para preparar imports y scraping sin publicar afirmaciones débiles.</p>
+            <p className="muted">Priorizamos fuentes pendientes y datos con baja confianza para ampliar el archivo sin publicar afirmaciones débiles.</p>
           </div>
           <div className="queueList">
             {queue.map((item) => (

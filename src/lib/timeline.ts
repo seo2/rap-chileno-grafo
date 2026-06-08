@@ -1,4 +1,4 @@
-import { albums, artists, places, relationships, sources } from '@/lib/catalog';
+import { albums, artists, getRelationshipTypeLabel, places, relationships, sources } from '@/lib/catalog';
 import type { Album, Artist, CurationStatus, Era, Place, Relationship, Source } from '@/lib/catalog';
 
 export type TimelineEntityType = 'artist' | 'album' | 'relationship' | 'milestone';
@@ -106,7 +106,7 @@ function eventFromAlbum(album: Album): TimelineEvent {
     year: album.year,
     era: getEraForYear(album.year),
     title: album.title,
-    description: artist ? `${artist.name} publica ${album.type} clave para la línea temporal semilla.` : `Lanzamiento ${album.type} pendiente de artista verificado.`,
+    description: artist ? `${artist.name} publica ${album.type} clave para la línea temporal del archivo.` : `Lanzamiento ${album.type} pendiente de artista verificado.`,
     entityType: 'album',
     entityId: album.id,
     sourceIds: album.sourceIds,
@@ -135,7 +135,7 @@ function eventFromRelationship(relationship: Relationship): TimelineEvent | null
     year: relationship.year,
     era: getEraForYear(relationship.year),
     title: `${sourceArtist?.name ?? relationship.source} → ${targetLabel}`,
-    description: `Relación ${relationship.relationshipType.replaceAll('_', ' ')} registrada en ${relationship.year}.`,
+    description: `Relación ${getRelationshipTypeLabel(relationship.relationshipType)} registrada en ${relationship.year}.`,
     entityType: 'relationship',
     entityId: relationship.id,
     sourceIds: relationship.sourceIds,

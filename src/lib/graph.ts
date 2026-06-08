@@ -83,17 +83,17 @@ export type GraphNeighborhood = {
 };
 
 const kindColor: Record<GraphNodeKind, string> = {
-  artist: '#1ed760',
-  album: '#7170ff',
-  place: '#2dd4bf',
+  artist: '#a23e2e',
+  album: '#f5f0eb',
+  place: '#2d4739',
 };
 
 const statusStroke: Record<CurationStatus, string> = {
-  pending: '#f59e0b',
-  candidate: '#f7f8f8',
-  reviewed: '#2dd4bf',
-  verified: '#1ed760',
-  rejected: '#ef4444',
+  pending: '#7a7470',
+  candidate: '#a98235',
+  reviewed: '#fdf8f8',
+  verified: '#2d4739',
+  rejected: '#ba1a1a',
 };
 
 const relationshipTypeLabels: Record<Relationship['relationshipType'], string> = {

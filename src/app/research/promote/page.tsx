@@ -13,7 +13,7 @@ export default function ResearchPromotionPage() {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Sprint 10 · Promoción editorial manual</p>
+          <p className="eyebrow">Promoción editorial manual</p>
           <h1>Paquetes de promoción</h1>
           <p>
             Esta mesa convierte candidatos revisados en parches editoriales copiables. El sistema no aplica cambios al

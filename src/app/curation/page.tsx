@@ -10,10 +10,10 @@ export default function CurationPage() {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Sprint 12 · Vista /curation</p>
+          <p className="eyebrow">Mesa editorial</p>
           <h1>Consola de curaduría editorial</h1>
           <p>
-            Una sola mesa para seguir el flujo completo: fuentes pendientes, claims externos,
+            Una sola mesa para seguir el flujo completo: fuentes pendientes, hallazgos externos,
             paquetes de promoción y datos ya publicados en el grafo con provenance editorial.
           </p>
           <div className="curationStats" aria-label="Resumen de curaduría">
@@ -74,22 +74,22 @@ export default function CurationPage() {
 
         <section className="contentCard fullSpan">
           <p className="sectionTitle">Lectura editorial</p>
-          <h2>Estado del pipeline</h2>
+          <h2>Estado del flujo editorial</h2>
           <div className="extractGrid">
             <article className="extractCard">
               <p className="eyebrow">Fuentes</p>
               <h3>{dashboard.sourceBacklog.byStatus.pending ?? 0} pendientes</h3>
               <p>
                 Las fuentes siguen siendo la entrada de evidencia. Las pendientes o candidatas deben pasar por detalle
-                de fuente antes de convertirse en claims.
+                de fuente antes de convertirse en hallazgos publicables.
               </p>
               <span>{dashboard.sourceBacklog.byStatus.reviewed ?? 0} revisadas · {dashboard.sourceBacklog.byStatus.verified ?? 0} verificadas</span>
             </article>
             <article className="extractCard">
               <p className="eyebrow">Investigación</p>
-              <h3>{dashboard.researchBacklog.total} claims candidatos</h3>
+              <h3>{dashboard.researchBacklog.total} hallazgos candidatos</h3>
               <p>
-                Cada claim debe conservar fuente, cita, entidades relacionadas y decisión editorial antes de entrar al grafo.
+                Cada hallazgo debe conservar fuente, cita, entidades relacionadas y decisión editorial antes de entrar al grafo.
               </p>
               <span>{dashboard.researchBacklog.byStatus.candidate ?? 0} candidatos · {dashboard.researchBacklog.byStatus.pending ?? 0} pendientes</span>
             </article>

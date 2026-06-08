@@ -37,7 +37,7 @@ export const researchCandidates: ResearchCandidate[] = [
     label: 'Ser Hümano!! en archivo discográfico',
     sourceId: 'source-shia-discos',
     sourceName: 'SHIA discos nacionales',
-    claim: 'El archivo SHIA debe usarse para contrastar año, tipo y metadata discográfica de discos nacionales semilla.',
+    claim: 'El archivo SHIA debe usarse para contrastar año, tipo y metadata discográfica de discos nacionales del archivo inicial.',
     relatedEntityIds: ['album-ser-humano', 'artist-tiro-de-gracia'],
     confidence: 0.52,
     priority: 88,

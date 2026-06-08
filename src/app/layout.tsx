@@ -1,16 +1,17 @@
 import type { Metadata } from 'next';
-import { DM_Sans, JetBrains_Mono } from 'next/font/google';
+import { Hanken_Grotesk, Libre_Caslon_Text } from 'next/font/google';
 import './globals.css';
 
-const dmSans = DM_Sans({
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-hanken-grotesk',
   display: 'swap',
 });
 
-const jetBrainsMono = JetBrains_Mono({
+const libreCaslon = Libre_Caslon_Text({
   subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
+  variable: '--font-libre-caslon',
+  weight: ['400', '700'],
   display: 'swap',
 });
 
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
-      <body className={`${dmSans.variable} ${jetBrainsMono.variable}`}>{children}</body>
+      <body className={`${hankenGrotesk.variable} ${libreCaslon.variable}`}>{children}</body>
     </html>
   );
 }

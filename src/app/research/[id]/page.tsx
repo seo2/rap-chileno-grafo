@@ -23,7 +23,7 @@ export default async function ResearchCandidatePage({ params }: { params: Promis
     <SiteShell>
       <main className="pageGrid twoColumns">
         <section className="heroCard">
-          <p className="eyebrow">Sprint 9 · Revisión de candidato · {getCandidateKindLabel(candidate.kind)}</p>
+          <p className="eyebrow">Revisión de candidato · {getCandidateKindLabel(candidate.kind)}</p>
           <h1>{candidate.label}</h1>
           <p>{candidate.claim}</p>
           {candidate.extractedText ? <blockquote className="reviewQuote">{candidate.extractedText}</blockquote> : null}

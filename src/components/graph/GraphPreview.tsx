@@ -30,7 +30,7 @@ export function GraphPreview() {
   return (
     <section className={styles.stage} id="red">
       <div className={styles.viewLabel}>
-        <p className={styles.eyebrow}>MVP Next.js · solo rap</p>
+        <p className={styles.eyebrow}>Cartografía visual · rap chileno</p>
         <h1>El país<br />más rapero</h1>
         <p>Un grafo navegable donde cada artista, disco, ciudad y colaboración aparece conectado con evidencia y contexto histórico.</p>
       </div>

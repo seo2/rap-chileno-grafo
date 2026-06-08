@@ -11,10 +11,10 @@ export default function AlbumsPage() {
     <SiteShell>
       <main className="pageGrid">
         <section className="heroCard">
-          <p className="eyebrow">Discografía semilla · Sprint 13</p>
+          <p className="eyebrow">Discografía documentada</p>
           <h1>Discos</h1>
           <p>
-            Primer grupo de álbumes para conectar artistas, eras y futuras fuentes externas como Spotify.
+            Primer grupo de álbumes para conectar artistas, eras y fuentes externas.
             Cada disco ahora abre una ficha profunda con relaciones, fuentes y trazabilidad editorial.
           </p>
           <div className="chipGroup">
@@ -30,7 +30,7 @@ export default function AlbumsPage() {
               <div>
                 <p className="sectionTitle">Década</p>
                 <h2>{decade.decade}</h2>
-                <p className="muted">{decade.albums.length} lanzamiento{decade.albums.length === 1 ? '' : 's'} semilla</p>
+                <p className="muted">{decade.albums.length} lanzamiento{decade.albums.length === 1 ? '' : 's'} en archivo</p>
               </div>
               <div className="cardGrid">
                 {decade.albums.map((album) => {

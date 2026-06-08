@@ -20,7 +20,7 @@ export default function AboutPage() {
         </section>
         <section className="contentCard fullSpan">
           <h2>Estado del proyecto</h2>
-          <p>Esta versión deja una base navegable con grafo interactivo, catálogo semilla, fichas dinámicas, discos, timeline, fuentes y una primera capa de evidencia editorial.</p>
+          <p>Esta versión deja una base navegable con grafo interactivo, catálogo curatorial, fichas dinámicas, discos, timeline, fuentes y una primera capa de evidencia editorial.</p>
         </section>
       </main>
     </SiteShell>

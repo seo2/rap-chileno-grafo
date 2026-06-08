@@ -66,6 +66,11 @@ export function GraphCanvas() {
       .force('collision', d3.forceCollide<SimNode>().radius((node) => node.radius + 18))
       .alpha(0.9)
       .on('tick', () => {
+        simulationNodes.forEach((node) => {
+          const margin = node.radius + 18;
+          node.x = clamp(node.x ?? 460, margin, 920 - margin);
+          node.y = clamp(node.y ?? 310, margin, 620 - margin);
+        });
         setNodes(simulationNodes.map((node) => ({ ...node })));
         setEdges(simulationEdges.map((edge) => ({ ...edge })));
       });
@@ -117,7 +122,7 @@ export function GraphCanvas() {
     <section className={styles.canvasShell} aria-label="Grafo interactivo del rap chileno">
       <div className={styles.canvasToolbar}>
         <div>
-          <p className={styles.eyebrow}>Grafo D3 interactivo · Sprint 4</p>
+          <p className={styles.eyebrow}>Archivo de relaciones</p>
           <h2>Red viva</h2>
         </div>
         <div className={styles.toolbarGroups}>

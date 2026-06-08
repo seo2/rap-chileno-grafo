@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Línea de Tiempo - El País Más Rapero</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#400200",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#1b1b1c",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#313030",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#c8c6c7",
+                    "on-background": "#1c1b1b",
+                    "on-primary-fixed": "#1b1b1c",
+                    "primary": "#000000",
+                    "surface-dim": "#ddd9d9",
+                    "tertiary-container": "#062014",
+                    "surface-container-low": "#f7f3f2",
+                    "tertiary": "#000000",
+                    "secondary": "#a23e2e",
+                    "background": "#fdf8f8",
+                    "on-primary-container": "#858384",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f4f0ef",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#5f5e5f",
+                    "surface-container-highest": "#e5e2e1",
+                    "outline": "#76777b",
+                    "on-secondary-container": "#721b0f",
+                    "secondary-container": "#fd826d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#ffdad4",
+                    "tertiary-fixed": "#ccead6",
+                    "on-surface-variant": "#46474a",
+                    "tertiary-fixed-dim": "#b0cdbb",
+                    "on-surface": "#1c1b1b",
+                    "on-primary-fixed-variant": "#474647",
+                    "on-tertiary-fixed-variant": "#324c3e",
+                    "secondary-fixed-dim": "#ffb4a7",
+                    "on-tertiary-fixed": "#062014",
+                    "inverse-primary": "#c8c6c7",
+                    "surface-bright": "#fdf8f8",
+                    "surface-variant": "#e5e2e1",
+                    "surface-container": "#f1edec",
+                    "surface-container-high": "#ebe7e7",
+                    "surface": "#fdf8f8",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#822719",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#e5e2e3",
+                    "on-tertiary-container": "#6e8a79",
+                    "outline-variant": "#c7c6ca"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "data-mono": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf8f8;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+            z-index: 99;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background-color: #000;
+            z-index: 0;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1edec;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #000;
+        }
+        .ink-bleed {
+            filter: contrast(1.2) grayscale(1) brightness(0.9);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<div class="grain-overlay"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-14 bg-surface dark:bg-surface-dim border-b border-on-surface dark:border-outline">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="text-headline-md font-headline-md tracking-tighter text-primary dark:text-primary-fixed">EL PAÍS MÁS RAPERO</h1>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:bg-surface-variant px-2 py-1 transition-colors" href="#">HOME</a>
+<a class="text-label-caps font-label-caps text-primary dark:text-primary-fixed font-bold px-2 py-1" href="#">GRAPH</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:bg-surface-variant px-2 py-1 transition-colors" href="#">ARTISTS</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:bg-surface-variant px-2 py-1 transition-colors" href="#">SOURCES</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">search</span>
+</div>
+</header>
+<!-- Decade Selector -->
+<div class="fixed top-14 left-0 w-full z-40 bg-surface border-b border-primary/10 px-margin-desktop py-4 flex justify-center gap-12">
+<button class="font-label-caps text-label-caps border-b-2 border-transparent hover:border-secondary transition-all opacity-50 hover:opacity-100">80S</button>
+<button class="font-label-caps text-label-caps border-b-2 border-primary transition-all">90S</button>
+<button class="font-label-caps text-label-caps border-b-2 border-transparent hover:border-secondary transition-all opacity-50 hover:opacity-100">00S</button>
+<button class="font-label-caps text-label-caps border-b-2 border-transparent hover:border-secondary transition-all opacity-50 hover:opacity-100">10S</button>
+<button class="font-label-caps text-label-caps border-b-2 border-transparent hover:border-secondary transition-all opacity-50 hover:opacity-100">20S</button>
+</div>
+<!-- Main Content Canvas -->
+<main class="pt-32 pb-24 px-margin-desktop max-w-container-max mx-auto relative min-h-screen">
+<!-- Center Timeline Line -->
+<div class="timeline-line opacity-20 hidden md:block"></div>
+<div class="space-y-24 relative z-10">
+<!-- Milestone 1: 1988 -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col items-end text-right md:pr-16 order-2 md:order-1">
+<span class="text-display-lg font-display-lg leading-none mb-2">1988</span>
+<div class="mb-4">
+<span class="px-2 py-1 border border-primary text-label-caps font-label-caps">HITO HISTÓRICO</span>
+</div>
+<h2 class="text-headline-md font-headline-md mb-4 uppercase tracking-tight">Panteras Negras - De la calle</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md ml-auto">
+                        La génesis del rap consciente en Chile. Un grito desde la población Huamachuco que definió la identidad de una generación marcada por la resistencia social y el sonido crudo del boom-bap santiaguino.
+                    </p>
+</div>
+<div class="relative order-1 md:order-2 md:pl-16">
+<!-- Connector Dot -->
+<div class="absolute top-1/2 -left-1 w-3 h-3 bg-primary rounded-full hidden md:block -translate-x-1/2 -translate-y-1/2"></div>
+<div class="border-2 border-primary p-2 bg-surface">
+<img class="w-full h-[300px] object-cover ink-bleed" data-alt="A gritty, high-contrast monochromatic photograph of a street mural in a Chilean neighborhood, featuring graffiti tags and stencil art. The lighting is harsh and dramatic, emphasizing the textures of the crumbling concrete wall. The aesthetic is raw and editorial, reflecting the rebellious spirit of the 1980s hip-hop scene in Santiago. The palette is strictly black, white, and varying shades of grey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6P4gW116J0YoCMhf2GAAJo7mKH8TceSXvizoGS21gVOUeSa_nA9TiQpu-vHN7s8BLm99Sm8HG2YesnWNbC-9wdG78qMNEkrq5V4fmq8JYXya0Se7vgaa7aX1WRvnx4t29GP7hjTUG-Ys0tIhnOeCgR1q3h86Zq0RL0fQjNOEPlrtsFiHkMOdTF5djnct0LoTXb-V3dB7fqZOkQN0vIWe1IKEMdpM6qMWZw8E_lJeDcoRgSCGgo2VCyQ61UeVe12IylNkBClMyDyU"/>
+</div>
+</div>
+</section>
+<!-- Milestone 2: 1997 -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="relative order-1 md:pr-16">
+<div class="absolute top-1/2 -right-1 w-3 h-3 bg-secondary rounded-full hidden md:block translate-x-1/2 -translate-y-1/2"></div>
+<div class="border-2 border-primary p-2 bg-surface">
+<img class="w-full h-[300px] object-cover ink-bleed" data-alt="A vintage close-up of a classic hip-hop vinyl record spinning on a turntable, captured in a grainy, archival photographic style. The lighting is moody and focused on the grooves of the record, with a deep contrast between shadows and highlights. The overall mood is nostalgic and tactile, reminiscent of 90s editorial music magazines. The colors are muted and earthy, leaning towards charcoal and bone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU_gsvdoCgNMrTFkiLE_b2ah9I6cnPFuFnM6XGlhugN5fmPi4HcD06i1ZLzf61hkFOXPdqWpsbuAizKP9Jx3q15WHFelp5pPLnfmIAGKbfzxg6LjbuV5OIdydzsM7fV-XIgOXmV4ySEj9o5GOdpSlFA8XmwojQ0hpoWXayCfBJLWHhQ8JsAsYhyj3CpPLUKYB72R7twnteStq1Ff7KGwswY_k2v_f-oEHbcQqPkZOVGBjPNyry3XxkJkZiCXJQne_umsGhaY2_4Y4"/>
+</div>
+</div>
+<div class="flex flex-col items-start md:pl-16 order-2">
+<span class="text-display-lg font-display-lg leading-none mb-2">1997</span>
+<div class="mb-4">
+<span class="px-2 py-1 border border-secondary text-on-secondary-container text-label-caps font-label-caps">LANZAMIENTO CLAVE</span>
+</div>
+<h2 class="text-headline-md font-headline-md mb-4 uppercase tracking-tight">Tiro de Gracia - Ser humano!!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+                        El estallido masivo. Con una producción sofisticada que mezclaba funk, soul y líricas introspectivas, este álbum elevó el estándar técnico y puso al rap chileno en el radar continental.
+                    </p>
+<button class="mt-6 flex items-center gap-2 text-label-caps font-label-caps group">
+                        EXPLORAR ARCHIVO <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Milestone 3: 2003 -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col items-end text-right md:pr-16 order-2 md:order-1">
+<span class="text-display-lg font-display-lg leading-none mb-2">2003</span>
+<div class="mb-4">
+<span class="px-2 py-1 border border-primary text-label-caps font-label-caps">PRENSA</span>
+</div>
+<h2 class="text-headline-md font-headline-md mb-4 uppercase tracking-tight">Makiza - Con Pies de Plomo</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md ml-auto">
+                        La internacionalización del mensaje. Ana Tijoux y compañía trajeron una perspectiva cosmopolita y feminista, consolidando un sonido que balanceaba la elegancia del jazz con la rima política.
+                    </p>
+</div>
+<div class="relative order-1 md:order-2 md:pl-16">
+<div class="absolute top-1/2 -left-1 w-3 h-3 bg-primary rounded-full hidden md:block -translate-x-1/2 -translate-y-1/2"></div>
+<div class="border-2 border-primary p-2 bg-surface">
+<img class="w-full h-[300px] object-cover ink-bleed" data-alt="A portrait-style image of a vintage microphone standing in a dimly lit studio, surrounded by soundproofing foam. The lighting is focused and warm, creating a sense of intimacy and dedication. The style is that of a professional editorial archive, with high contrast and a slight film grain. The palette consists of deep blacks, rich ink tones, and subtle bone-colored highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgIEPjAeQjQ3TZ3nss00D-kKXGwHXZplZSGae1GchglOgVAB8viMvh5NUI6mjLzj2nQgzBGIbItqnz163g9Ql64-b6qsmIk2KiXXj6A98BV7wINv18LUU1G7ukSkW2SnYEbwDIGQJcP8YNcqempyUE-dnMeu-wEkvNrxs9ANtPX80AcEYPWfDUmNk9DLzdyoFUstyIwpMiYKqgP_r5p4VYik6c5k6n1q1XvcRZ89YwWoI6zCL2jQS6Pp67wvBsIDxFFx7kmTY5dT4"/>
+</div>
+</div>
+</section>
+<!-- Milestone 4: 2011 -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="relative order-1 md:pr-16">
+<div class="absolute top-1/2 -right-1 w-3 h-3 bg-primary rounded-full hidden md:block translate-x-1/2 -translate-y-1/2"></div>
+<div class="border-2 border-primary p-2 bg-surface">
+<img class="w-full h-[300px] object-cover ink-bleed" data-alt="A wide-angle, monochromatic shot of a massive crowd at an outdoor music festival, with stage lights piercing through a hazy atmosphere. The image is captured with a gritty, street-level urgency. The contrast is extreme, creating a stark visual of collective energy and protest. The colors are predominantly deep blacks and bright whites, maintaining a consistent archival aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYvwd2281PFyoXvF0K8nxqnQUHC40PrJLa1vO6-7oWl2YM82vZ3-14M6uhoH5lCjpsX4mYV6jYqZII1nu3_OqXTGTGcNNhpntdLvTmPJd86431-X395y72URFGSQvRuTvqNx4-Ap_srJirSknVimBI9je3wxy4jXRWGaCfLURCdYYFNkC5fb2qpdRHRNfkbi_zYZjcx43f-2v0G0nO9E_SfKEg6s8ukdAZS8wyBkoZM8Img3mrywMmDCVuGp0ierc4Zs1MRHcuozw"/>
+</div>
+</div>
+<div class="flex flex-col items-start md:pl-16 order-2">
+<span class="text-display-lg font-display-lg leading-none mb-2">2011</span>
+<div class="mb-4">
+<span class="px-2 py-1 border border-primary text-label-caps font-label-caps">HITO HISTÓRICO</span>
+</div>
+<h2 class="text-headline-md font-headline-md mb-4 uppercase tracking-tight">Portavoz - Escribo Rap con R de Revolución</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+                        El retorno a la raíz política en la era digital. Portavoz se convierte en el estandarte de las movilizaciones estudiantiles, devolviendo al rap su rol central en la protesta social chilena.
+                    </p>
+</div>
+</section>
+</div>
+<!-- Vertical Divider Decoration -->
+<div class="mt-24 pt-12 border-t-2 border-primary flex justify-between items-center">
+<div class="flex gap-4 items-center">
+<span class="font-label-caps text-label-caps">INDICE DE ARCHIVO</span>
+<div class="w-12 h-px bg-primary/20"></div>
+<span class="font-data-mono text-data-mono">FOLIO: 001-2024</span>
+</div>
+<div class="flex gap-8">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary">arrow_upward</span>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 bg-surface dark:bg-surface-dim border-t-2 border-primary dark:border-primary-fixed">
+<div class="flex flex-col items-center justify-center text-on-surface dark:text-on-surface-variant py-1 flex-1">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-caps font-label-caps">HOME</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container py-1 flex-1">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-label-caps font-label-caps">GRAPH</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface dark:text-on-surface-variant py-1 flex-1">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-caps font-label-caps">ARTISTS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface dark:text-on-surface-variant py-1 flex-1">
+<span class="material-symbols-outlined">library_books</span>
+<span class="text-label-caps font-label-caps">SOURCES</span>
+</div>
+</nav>
+<!-- Navigation Drawer (Overlay - Hidden by default) -->
+<aside class="fixed inset-y-0 left-0 z-[60] flex flex-col p-gutter bg-surface dark:bg-surface-dim border-r-2 border-primary dark:border-primary-fixed w-80 -translate-x-full transition-all duration-300 ease-in-out" id="drawer">
+<div class="mb-12 flex justify-between items-center">
+<h3 class="text-headline-md font-headline-md text-primary">THE ARCHIVE</h3>
+<span class="material-symbols-outlined cursor-pointer" onclick="toggleDrawer()">close</span>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-bold">
+<span class="material-symbols-outlined">archive</span>
+<span class="font-body-md text-body-md">Archive Home</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface dark:text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-body-md text-body-md">Visual Graph</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface dark:text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-body-md text-body-md">Artist Directory</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface dark:text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-body-md text-body-md">Primary Sources</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface dark:text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">info</span>
+<span class="font-body-md text-body-md">About Project</span>
+</div>
+</div>
+</aside>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer');
+            drawer.classList.toggle('-translate-x-full');
+        }
+
+        document.querySelector('[data-icon="menu"]').addEventListener('click', toggleDrawer);
+
+        // Simple scroll reveal interaction
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('opacity-0', 'translate-y-8');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-8');
+            observer.observe(section);
+        });
+    </script>
+</body></html>
